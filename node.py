@@ -6,9 +6,9 @@ import logging
 from datetime import datetime, timezone, timedelta
 from typing import Tuple
 
-from protocol import NodeCommunicator, SecureNodeCommunicator, SecretSharing
-from data import NodeDataLoader
-from utils import NodeGradientComputer
+from runtime.protocol import NodeCommunicator, SecureNodeCommunicator, SecretSharing
+from core.data import NodeDataLoader
+from runtime.utils import NodeGradientComputer
 
 
 # ==============================================================================
