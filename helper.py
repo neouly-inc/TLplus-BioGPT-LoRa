@@ -6,8 +6,8 @@ import logging
 import torch
 from datetime import datetime, timezone, timedelta
 
-from protocol import SecureSocketCommunicator, SecureMessageType, SecretSharing
-from models import create_orchestrator_model, NUM_PUBMEDQA_CLASSES
+from runtime.protocol import SecureSocketCommunicator, SecureMessageType, SecretSharing
+from core.models import create_orchestrator_model, NUM_PUBMEDQA_CLASSES
 
 
 # ==============================================================================
