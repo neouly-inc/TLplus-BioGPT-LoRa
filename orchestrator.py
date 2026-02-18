@@ -14,17 +14,17 @@ from typing import Optional, Tuple, List, Dict
 
 from transformers import get_linear_schedule_with_warmup
 
-from protocol import (
+from runtime.protocol import (
     OrchestratorCommunicator, SecureOrchestratorCommunicator,
     SecretSharing, SecureSocketCommunicator, SecureMessageType,
 )
-from data import OrchestratorDataLoader, NUM_PUBMEDQA_CLASSES
-from models import (
+from core.data import OrchestratorDataLoader, NUM_PUBMEDQA_CLASSES
+from core.models import (
     create_orchestrator_model, create_node_model,
     DEFAULT_LORA_R, DEFAULT_LORA_ALPHA, DEFAULT_LORA_DROPOUT,
     DEFAULT_LORA_TARGET_MODULES,
 )
-from utils import (
+from runtime.utils import (
     BatchScheduler, GradientAggregator, ModelEvaluator, DataMerger,
     SecureDataMerger, SecureEvaluator,
 )
