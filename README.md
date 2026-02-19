@@ -141,7 +141,7 @@ pip install torch --index-url https://download.pytorch.org/whl/cu118
 PubMedQA is loaded automatically in order of priority:
 
 1. **Hugging Face** (`pip install datasets`) — downloads `pubmed_qa / pqa_labeled` (1,000 labeled samples); 70/30 train/test split
-2. **Local file** — place `ori_pqal.json` in `./data/`; 80/20 train/test split
+2. **Local file** — place `ori_pqal.json` in `./data/`; 70/30 train/test split
 3. **Auto-download** — fetches from the [PubMedQA GitHub](https://github.com/pubmedqa/pubmedqa) if no local file is found
 
 ---
