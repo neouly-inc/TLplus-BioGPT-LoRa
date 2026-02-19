@@ -323,15 +323,6 @@ python node.py \
   --helper_port 8081
 ```
 
-### Noise Configuration
-
-Gaussian noise is added to secret shares to strengthen privacy against statistical inference attacks. Higher noise improves privacy at the cost of a small accuracy trade-off.
-
-| Parameter | Default | Description |
-|:----------|:-------:|:------------|
-| `--activation_noise` | `0.02` | Noise scale (σ = noise × std(activation)) applied to hidden-state shares |
-| `--gradient_noise` | `0.10` | Noise scale applied to parameter gradient shares |
-
 ---
 
 ## 📊 Centralized Learning Baseline
