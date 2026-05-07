@@ -1,0 +1,241 @@
+2026-02-17 20:33:09 KST | INFO | ================================================================================
+2026-02-17 20:33:09 KST | INFO | TL++ Orchestrator  [BioGPT / PubMedQA]
+2026-02-17 20:33:09 KST | INFO | ================================================================================
+2026-02-17 20:33:09 KST | INFO | Log file: logs/TL++_biogpt_base_lora_20260217_203309.log
+2026-02-17 20:33:09 KST | INFO | 
+2026-02-17 20:33:09 KST | INFO | --------------------------------------------------------------------------------
+2026-02-17 20:33:09 KST | INFO | CONFIGURATION
+2026-02-17 20:33:09 KST | INFO | --------------------------------------------------------------------------------
+2026-02-17 20:33:09 KST | INFO | Dataset:            PubMedQA (yes / no / maybe)
+2026-02-17 20:33:09 KST | INFO | Model:              BioGPT (microsoft/biogpt)
+2026-02-17 20:33:09 KST | INFO | Secure mode:        False
+2026-02-17 20:33:09 KST | INFO | LoRA:               True
+2026-02-17 20:33:09 KST | INFO |   r=8, alpha=16, dropout=0.1
+2026-02-17 20:33:09 KST | INFO | Nodes:              3
+2026-02-17 20:33:09 KST | INFO | Cut layer:          1
+2026-02-17 20:33:09 KST | INFO | Batch size:         8
+2026-02-17 20:33:09 KST | INFO | Learning rate:      2.00e-05
+2026-02-17 20:33:09 KST | INFO | Max seq length:     512
+2026-02-17 20:33:09 KST | INFO | 
+2026-02-17 20:33:09 KST | INFO | Computation device: cuda
+2026-02-17 20:33:09 KST | INFO | Secure mode: DISABLED
+2026-02-17 20:33:09 KST | INFO | 
+2026-02-17 20:33:09 KST | INFO | --------------------------------------------------------------------------------
+2026-02-17 20:33:09 KST | INFO | NETWORK SETUP
+2026-02-17 20:33:09 KST | INFO | --------------------------------------------------------------------------------
+2026-02-17 20:33:09 KST | INFO | ✓ Orchestrator listening on 127.0.0.1:8080
+2026-02-17 20:33:09 KST | INFO | Waiting for 3 node(s) …
+2026-02-17 20:33:11 KST | INFO |   ✓ Node 1/3 connected
+2026-02-17 20:33:12 KST | INFO |   ✓ Node 2/3 connected
+2026-02-17 20:33:13 KST | INFO |   ✓ Node 3/3 connected
+2026-02-17 20:33:13 KST | INFO | ✓ All 3 node(s) connected
+2026-02-17 20:33:13 KST | INFO | 
+2026-02-17 20:33:13 KST | INFO | --------------------------------------------------------------------------------
+2026-02-17 20:33:13 KST | INFO | MODEL INITIALISATION  [BioGPT + LoRA on orch-side layers]
+2026-02-17 20:33:13 KST | INFO | --------------------------------------------------------------------------------
+2026-02-17 20:33:14 KST | INFO | HTTP Request: HEAD https://huggingface.co/microsoft/biogpt/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-02-17 20:33:14 KST | INFO | HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/microsoft/biogpt/eb0d815e95434dc9e3b78f464e52b899bee7d923/config.json "HTTP/1.1 200 OK"
+2026-02-17 20:33:14 KST | INFO | HTTP Request: HEAD https://huggingface.co/microsoft/biogpt/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-02-17 20:33:14 KST | INFO | HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/microsoft/biogpt/eb0d815e95434dc9e3b78f464e52b899bee7d923/config.json "HTTP/1.1 200 OK"
+2026-02-17 20:33:14 KST | INFO | HTTP Request: HEAD https://huggingface.co/microsoft/biogpt/resolve/main/model.safetensors "HTTP/1.1 404 Not Found"
+2026-02-17 20:33:14 KST | WARNING | Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-02-17 20:33:14 KST | INFO | HTTP Request: HEAD https://huggingface.co/microsoft/biogpt/resolve/main/model.safetensors.index.json "HTTP/1.1 404 Not Found"
+2026-02-17 20:33:15 KST | INFO | HTTP Request: HEAD https://huggingface.co/microsoft/biogpt/resolve/main/pytorch_model.bin "HTTP/1.1 302 Found"
+2026-02-17 20:33:15 KST | INFO | HTTP Request: HEAD https://huggingface.co/microsoft/biogpt/resolve/main/model.safetensors "HTTP/1.1 404 Not Found"
+2026-02-17 20:33:15 KST | INFO | HTTP Request: GET https://huggingface.co/api/models/microsoft/biogpt "HTTP/1.1 200 OK"
+2026-02-17 20:33:15 KST | INFO | HTTP Request: GET https://huggingface.co/api/models/microsoft/biogpt/commits/main "HTTP/1.1 200 OK"
+2026-02-17 20:33:15 KST | INFO | HTTP Request: GET https://huggingface.co/api/models/microsoft/biogpt/discussions?p=0 "HTTP/1.1 200 OK"
+2026-02-17 20:33:16 KST | INFO | HTTP Request: GET https://huggingface.co/api/models/microsoft/biogpt/commits/refs%2Fpr%2F17 "HTTP/1.1 200 OK"
+2026-02-17 20:33:16 KST | INFO | HTTP Request: HEAD https://huggingface.co/microsoft/biogpt/resolve/refs%2Fpr%2F17/model.safetensors.index.json "HTTP/1.1 404 Not Found"
+2026-02-17 20:33:16 KST | INFO | HTTP Request: HEAD https://huggingface.co/microsoft/biogpt/resolve/refs%2Fpr%2F17/model.safetensors "HTTP/1.1 302 Found"
+2026-02-17 20:33:17 KST | INFO | HTTP Request: HEAD https://huggingface.co/microsoft/biogpt/resolve/main/generation_config.json "HTTP/1.1 404 Not Found"
+2026-02-17 20:33:17 KST | INFO | HTTP Request: HEAD https://huggingface.co/microsoft/biogpt/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-02-17 20:33:17 KST | INFO | HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/microsoft/biogpt/eb0d815e95434dc9e3b78f464e52b899bee7d923/config.json "HTTP/1.1 200 OK"
+2026-02-17 20:33:17 KST | INFO | Node-side parameters:      69,644,288
+2026-02-17 20:33:17 KST | INFO | 
+2026-02-17 20:33:17 KST | INFO | Broadcasting configuration to nodes …
+2026-02-17 20:33:36 KST | INFO | ✓ Configuration broadcast to all nodes
+2026-02-17 20:33:36 KST | INFO | Loading microsoft/biogpt …
+2026-02-17 20:33:37 KST | INFO | HTTP Request: HEAD https://huggingface.co/microsoft/biogpt/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-02-17 20:33:37 KST | INFO | HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/microsoft/biogpt/eb0d815e95434dc9e3b78f464e52b899bee7d923/config.json "HTTP/1.1 200 OK"
+2026-02-17 20:33:37 KST | INFO | HTTP Request: HEAD https://huggingface.co/microsoft/biogpt/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-02-17 20:33:37 KST | INFO | HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/microsoft/biogpt/eb0d815e95434dc9e3b78f464e52b899bee7d923/config.json "HTTP/1.1 200 OK"
+2026-02-17 20:33:37 KST | INFO | HTTP Request: HEAD https://huggingface.co/microsoft/biogpt/resolve/main/model.safetensors "HTTP/1.1 404 Not Found"
+2026-02-17 20:33:37 KST | INFO | HTTP Request: HEAD https://huggingface.co/microsoft/biogpt/resolve/main/model.safetensors.index.json "HTTP/1.1 404 Not Found"
+2026-02-17 20:33:37 KST | INFO | HTTP Request: HEAD https://huggingface.co/microsoft/biogpt/resolve/main/pytorch_model.bin "HTTP/1.1 302 Found"
+2026-02-17 20:33:38 KST | INFO | HTTP Request: HEAD https://huggingface.co/microsoft/biogpt/resolve/main/model.safetensors "HTTP/1.1 404 Not Found"
+2026-02-17 20:33:38 KST | INFO | HTTP Request: GET https://huggingface.co/api/models/microsoft/biogpt "HTTP/1.1 200 OK"
+2026-02-17 20:33:38 KST | INFO | HTTP Request: GET https://huggingface.co/api/models/microsoft/biogpt/commits/main "HTTP/1.1 200 OK"
+2026-02-17 20:33:38 KST | INFO | HTTP Request: GET https://huggingface.co/api/models/microsoft/biogpt/discussions?p=0 "HTTP/1.1 200 OK"
+2026-02-17 20:33:39 KST | INFO | HTTP Request: GET https://huggingface.co/api/models/microsoft/biogpt/commits/refs%2Fpr%2F17 "HTTP/1.1 200 OK"
+2026-02-17 20:33:39 KST | INFO | HTTP Request: HEAD https://huggingface.co/microsoft/biogpt/resolve/refs%2Fpr%2F17/model.safetensors.index.json "HTTP/1.1 404 Not Found"
+2026-02-17 20:33:39 KST | INFO | HTTP Request: HEAD https://huggingface.co/microsoft/biogpt/resolve/refs%2Fpr%2F17/model.safetensors "HTTP/1.1 302 Found"
+2026-02-17 20:33:39 KST | INFO | HTTP Request: HEAD https://huggingface.co/microsoft/biogpt/resolve/main/generation_config.json "HTTP/1.1 404 Not Found"
+2026-02-17 20:33:40 KST | INFO | HTTP Request: HEAD https://huggingface.co/microsoft/biogpt/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-02-17 20:33:40 KST | INFO | HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/microsoft/biogpt/eb0d815e95434dc9e3b78f464e52b899bee7d923/config.json "HTTP/1.1 200 OK"
+2026-02-17 20:33:40 KST | INFO | LoRA applied to orch-side layers [2, 6): trainable 346,766,339 / 346,766,339 (100.00%)
+2026-02-17 20:33:41 KST | INFO | Total parameters:          346,766,339
+2026-02-17 20:33:41 KST | INFO | Trainable parameters:      346,766,339
+2026-02-17 20:33:41 KST | INFO |   (LoRA on orch-side layers, full fine-tune on node-side layers)
+2026-02-17 20:33:41 KST | INFO | 
+2026-02-17 20:33:41 KST | INFO | --------------------------------------------------------------------------------
+2026-02-17 20:33:41 KST | INFO | DATA LOADING
+2026-02-17 20:33:41 KST | INFO | --------------------------------------------------------------------------------
+2026-02-17 20:33:47 KST | INFO | ✓ Dataset sizes received:
+2026-02-17 20:33:47 KST | INFO |     Node 1: 397 samples
+2026-02-17 20:33:47 KST | INFO |     Node 2: 228 samples
+2026-02-17 20:33:47 KST | INFO |     Node 3: 75 samples
+2026-02-17 20:33:47 KST | INFO |   Total training: 700
+2026-02-17 20:33:47 KST | INFO | 
+2026-02-17 20:33:47 KST | INFO | HTTP Request: HEAD https://huggingface.co/microsoft/biogpt/resolve/main/tokenizer_config.json "HTTP/1.1 404 Not Found"
+2026-02-17 20:33:47 KST | INFO | HTTP Request: GET https://huggingface.co/api/models/microsoft/biogpt/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-02-17 20:33:48 KST | INFO | HTTP Request: GET https://huggingface.co/api/models/microsoft/biogpt/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-02-17 20:33:48 KST | INFO | HTTP Request: HEAD https://huggingface.co/microsoft/biogpt/resolve/main/vocab.json "HTTP/1.1 307 Temporary Redirect"
+2026-02-17 20:33:48 KST | INFO | HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/microsoft/biogpt/eb0d815e95434dc9e3b78f464e52b899bee7d923/vocab.json "HTTP/1.1 200 OK"
+2026-02-17 20:33:49 KST | INFO | Loading PubMedQA from Hugging Face …
+2026-02-17 20:33:49 KST | INFO | HTTP Request: HEAD https://huggingface.co/datasets/pubmed_qa/resolve/main/README.md "HTTP/1.1 307 Temporary Redirect"
+2026-02-17 20:33:49 KST | INFO | HTTP Request: HEAD https://huggingface.co/datasets/qiaojin/PubMedQA/resolve/main/README.md "HTTP/1.1 307 Temporary Redirect"
+2026-02-17 20:33:49 KST | INFO | HTTP Request: HEAD https://huggingface.co/api/resolve-cache/datasets/qiaojin/PubMedQA/9001f2853fb87cab8d220904e0de81ac6973b318/README.md "HTTP/1.1 200 OK"
+2026-02-17 20:33:50 KST | INFO | HTTP Request: HEAD https://huggingface.co/datasets/pubmed_qa/resolve/9001f2853fb87cab8d220904e0de81ac6973b318/pubmed_qa.py "HTTP/1.1 307 Temporary Redirect"
+2026-02-17 20:33:50 KST | INFO | HTTP Request: HEAD https://huggingface.co/datasets/qiaojin/PubMedQA/resolve/9001f2853fb87cab8d220904e0de81ac6973b318/pubmed_qa.py "HTTP/1.1 404 Not Found"
+2026-02-17 20:33:50 KST | INFO | HTTP Request: HEAD https://s3.amazonaws.com/datasets.huggingface.co/datasets/datasets/pubmed_qa/pubmed_qa.py "HTTP/1.1 404 Not Found"
+2026-02-17 20:33:51 KST | INFO | HTTP Request: GET https://huggingface.co/api/datasets/pubmed_qa/revision/9001f2853fb87cab8d220904e0de81ac6973b318 "HTTP/1.1 307 Temporary Redirect"
+2026-02-17 20:33:51 KST | INFO | HTTP Request: GET https://huggingface.co/api/datasets/qiaojin/PubMedQA/revision/9001f2853fb87cab8d220904e0de81ac6973b318 "HTTP/1.1 200 OK"
+2026-02-17 20:33:51 KST | INFO | HTTP Request: HEAD https://huggingface.co/datasets/pubmed_qa/resolve/9001f2853fb87cab8d220904e0de81ac6973b318/.huggingface.yaml "HTTP/1.1 307 Temporary Redirect"
+2026-02-17 20:33:51 KST | INFO | HTTP Request: HEAD https://huggingface.co/datasets/qiaojin/PubMedQA/resolve/9001f2853fb87cab8d220904e0de81ac6973b318/.huggingface.yaml "HTTP/1.1 404 Not Found"
+2026-02-17 20:33:51 KST | INFO | HTTP Request: GET https://datasets-server.huggingface.co/info?dataset=pubmed_qa "HTTP/1.1 404 Not Found"
+2026-02-17 20:33:52 KST | INFO | HTTP Request: GET https://huggingface.co/api/datasets/pubmed_qa/tree/9001f2853fb87cab8d220904e0de81ac6973b318/pqa_artificial?recursive=true&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-02-17 20:33:52 KST | INFO | HTTP Request: GET https://huggingface.co/api/datasets/qiaojin/PubMedQA/tree/9001f2853fb87cab8d220904e0de81ac6973b318/pqa_artificial?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-02-17 20:33:52 KST | INFO | HTTP Request: GET https://huggingface.co/api/datasets/pubmed_qa/tree/9001f2853fb87cab8d220904e0de81ac6973b318?recursive=false&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-02-17 20:33:52 KST | INFO | HTTP Request: GET https://huggingface.co/api/datasets/qiaojin/PubMedQA/tree/9001f2853fb87cab8d220904e0de81ac6973b318?recursive=false&expand=false "HTTP/1.1 200 OK"
+2026-02-17 20:33:52 KST | INFO | HTTP Request: HEAD https://huggingface.co/datasets/pubmed_qa/resolve/9001f2853fb87cab8d220904e0de81ac6973b318/dataset_infos.json "HTTP/1.1 307 Temporary Redirect"
+2026-02-17 20:33:53 KST | INFO | HTTP Request: HEAD https://huggingface.co/datasets/qiaojin/PubMedQA/resolve/9001f2853fb87cab8d220904e0de81ac6973b318/dataset_infos.json "HTTP/1.1 404 Not Found"
+2026-02-17 20:33:53 KST | INFO | HTTP Request: GET https://huggingface.co/api/datasets/pubmed_qa/tree/9001f2853fb87cab8d220904e0de81ac6973b318/pqa_labeled?recursive=true&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-02-17 20:33:53 KST | INFO | HTTP Request: GET https://huggingface.co/api/datasets/qiaojin/PubMedQA/tree/9001f2853fb87cab8d220904e0de81ac6973b318/pqa_labeled?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-02-17 20:33:53 KST | INFO | ✓ HF PubMedQA: 1000 total, 700 train / 300 test
+2026-02-17 20:33:57 KST | INFO | ✓ Test set: 300 samples
+2026-02-17 20:33:57 KST | INFO | 
+2026-02-17 20:33:57 KST | INFO | ✓ Batch scheduler: 88 batches/epoch
+2026-02-17 20:33:57 KST | INFO | 
+2026-02-17 20:33:57 KST | INFO | --------------------------------------------------------------------------------
+2026-02-17 20:33:57 KST | INFO | OPTIMISATION SETUP
+2026-02-17 20:33:57 KST | INFO | --------------------------------------------------------------------------------
+2026-02-17 20:33:57 KST | INFO | ✓ Optimizer:  AdamW (lr=2.00e-05)
+2026-02-17 20:33:57 KST | INFO | ✓ Scheduler:  Linear warmup (500 steps / 8800 total)
+2026-02-17 20:33:57 KST | INFO | ✓ Grad clip:  1.0
+2026-02-17 20:33:57 KST | INFO | 
+2026-02-17 20:33:57 KST | INFO | ================================================================================
+2026-02-17 20:33:57 KST | INFO | Setup complete — Ready for training
+2026-02-17 20:33:57 KST | INFO | ================================================================================
+2026-02-17 20:33:57 KST | INFO | 
+2026-02-17 20:33:57 KST | INFO | --------------------------------------------------------------------------------
+2026-02-17 20:33:57 KST | INFO | TRAINING
+2026-02-17 20:33:57 KST | INFO | --------------------------------------------------------------------------------
+2026-02-17 20:33:57 KST | INFO | 
+2026-02-17 20:33:57 KST | INFO | Epoch 1/100 | LR: 0.000000e+00
+2026-02-17 21:12:09 KST | INFO |   Train Loss: 1.1109 | Test Loss: 0.0596 | Test Acc: 57.33%
+2026-02-17 21:12:09 KST | INFO |     yes   : F1=66.28%
+2026-02-17 21:12:09 KST | INFO |     no    : F1=52.29%
+2026-02-17 21:12:09 KST | INFO |     maybe : F1= 0.00%
+2026-02-17 21:12:09 KST | INFO |   🏆 New best accuracy: 57.33%
+2026-02-17 21:12:09 KST | INFO | 
+2026-02-17 21:12:09 KST | INFO | Epoch 2/100 | LR: 3.520000e-06
+2026-02-17 21:49:36 KST | INFO |   Train Loss: 0.6454 | Test Loss: 0.0289 | Test Acc: 79.67%
+2026-02-17 21:49:36 KST | INFO |     yes   : F1=83.17%
+2026-02-17 21:49:36 KST | INFO |     no    : F1=77.27%
+2026-02-17 21:49:36 KST | INFO |     maybe : F1=70.77%
+2026-02-17 21:49:36 KST | INFO |   🏆 New best accuracy: 79.67%
+2026-02-17 21:49:36 KST | INFO | 
+2026-02-17 21:49:36 KST | INFO | Epoch 3/100 | LR: 7.040000e-06
+2026-02-17 22:27:21 KST | INFO |   Train Loss: 0.3396 | Test Loss: 0.0275 | Test Acc: 84.33%
+2026-02-17 22:27:21 KST | INFO |     yes   : F1=87.26%
+2026-02-17 22:27:21 KST | INFO |     no    : F1=85.31%
+2026-02-17 22:27:21 KST | INFO |     maybe : F1=69.33%
+2026-02-17 22:27:21 KST | INFO |   🏆 New best accuracy: 84.33%
+2026-02-17 22:27:21 KST | INFO | 
+2026-02-17 22:27:21 KST | INFO | Epoch 4/100 | LR: 1.056000e-05
+2026-02-17 23:04:46 KST | INFO |   Train Loss: 0.1892 | Test Loss: 0.0338 | Test Acc: 80.33%
+2026-02-17 23:04:46 KST | INFO |     yes   : F1=85.27%
+2026-02-17 23:04:46 KST | INFO |     no    : F1=82.23%
+2026-02-17 23:04:46 KST | INFO |     maybe : F1=57.14%
+2026-02-17 23:04:46 KST | INFO |   No improvement (1/10)
+2026-02-17 23:04:46 KST | INFO | 
+2026-02-17 23:04:46 KST | INFO | Epoch 5/100 | LR: 1.408000e-05
+2026-02-17 23:42:39 KST | INFO |   Train Loss: 0.0804 | Test Loss: 0.0477 | Test Acc: 79.33%
+2026-02-17 23:42:39 KST | INFO |     yes   : F1=83.99%
+2026-02-17 23:42:39 KST | INFO |     no    : F1=79.07%
+2026-02-17 23:42:39 KST | INFO |     maybe : F1=51.85%
+2026-02-17 23:42:39 KST | INFO |   No improvement (2/10)
+2026-02-17 23:42:39 KST | INFO | 
+2026-02-17 23:42:39 KST | INFO | Epoch 6/100 | LR: 1.760000e-05
+2026-02-18 00:20:37 KST | INFO |   Train Loss: 0.0333 | Test Loss: 0.0494 | Test Acc: 79.67%
+2026-02-18 00:20:37 KST | INFO |     yes   : F1=84.43%
+2026-02-18 00:20:37 KST | INFO |     no    : F1=80.56%
+2026-02-18 00:20:37 KST | INFO |     maybe : F1=44.00%
+2026-02-18 00:20:37 KST | INFO |   No improvement (3/10)
+2026-02-18 00:20:37 KST | INFO | 
+2026-02-18 00:20:37 KST | INFO | Epoch 7/100 | LR: 1.993253e-05
+2026-02-18 00:58:35 KST | INFO |   Train Loss: 0.0113 | Test Loss: 0.0786 | Test Acc: 76.33%
+2026-02-18 00:58:35 KST | INFO |     yes   : F1=82.32%
+2026-02-18 00:58:35 KST | INFO |     no    : F1=74.59%
+2026-02-18 00:58:35 KST | INFO |     maybe : F1=41.51%
+2026-02-18 00:58:35 KST | INFO |   No improvement (4/10)
+2026-02-18 00:58:35 KST | INFO | 
+2026-02-18 00:58:35 KST | INFO | Epoch 8/100 | LR: 1.972048e-05
+2026-02-18 01:35:29 KST | INFO |   Train Loss: 0.0069 | Test Loss: 0.0570 | Test Acc: 78.67%
+2026-02-18 01:35:29 KST | INFO |     yes   : F1=84.24%
+2026-02-18 01:35:29 KST | INFO |     no    : F1=79.21%
+2026-02-18 01:35:29 KST | INFO |     maybe : F1=36.73%
+2026-02-18 01:35:29 KST | INFO |   No improvement (5/10)
+2026-02-18 01:35:29 KST | INFO | 
+2026-02-18 01:35:29 KST | INFO | Epoch 9/100 | LR: 1.950843e-05
+2026-02-18 02:13:41 KST | INFO |   Train Loss: 0.0012 | Test Loss: 0.0824 | Test Acc: 76.33%
+2026-02-18 02:13:41 KST | INFO |     yes   : F1=81.52%
+2026-02-18 02:13:41 KST | INFO |     no    : F1=75.53%
+2026-02-18 02:13:41 KST | INFO |     maybe : F1=36.36%
+2026-02-18 02:13:41 KST | INFO |   No improvement (6/10)
+2026-02-18 02:13:41 KST | INFO | 
+2026-02-18 02:13:41 KST | INFO | Epoch 10/100 | LR: 1.929639e-05
+2026-02-18 02:52:33 KST | INFO |   Train Loss: 0.0001 | Test Loss: 0.0819 | Test Acc: 76.67%
+2026-02-18 02:52:33 KST | INFO |     yes   : F1=81.74%
+2026-02-18 02:52:33 KST | INFO |     no    : F1=76.19%
+2026-02-18 02:52:33 KST | INFO |     maybe : F1=36.36%
+2026-02-18 02:52:33 KST | INFO |   No improvement (7/10)
+2026-02-18 02:52:33 KST | INFO | 
+2026-02-18 02:52:33 KST | INFO | Epoch 11/100 | LR: 1.908434e-05
+2026-02-18 03:29:23 KST | INFO |   Train Loss: 0.0000 | Test Loss: 0.0797 | Test Acc: 77.67%
+2026-02-18 03:29:23 KST | INFO |     yes   : F1=82.64%
+2026-02-18 03:29:23 KST | INFO |     no    : F1=77.72%
+2026-02-18 03:29:23 KST | INFO |     maybe : F1=36.36%
+2026-02-18 03:29:23 KST | INFO |   No improvement (8/10)
+2026-02-18 03:29:23 KST | INFO | 
+2026-02-18 03:29:23 KST | INFO | Epoch 12/100 | LR: 1.887229e-05
+2026-02-18 04:05:38 KST | INFO |   Train Loss: 0.0000 | Test Loss: 0.0820 | Test Acc: 77.00%
+2026-02-18 04:05:38 KST | INFO |     yes   : F1=82.19%
+2026-02-18 04:05:38 KST | INFO |     no    : F1=76.44%
+2026-02-18 04:05:38 KST | INFO |     maybe : F1=36.36%
+2026-02-18 04:05:38 KST | INFO |   No improvement (9/10)
+2026-02-18 04:05:38 KST | INFO | 
+2026-02-18 04:05:38 KST | INFO | Epoch 13/100 | LR: 1.866024e-05
+2026-02-18 04:43:22 KST | INFO |   Train Loss: 0.0000 | Test Loss: 0.0827 | Test Acc: 77.00%
+2026-02-18 04:43:22 KST | INFO |     yes   : F1=82.19%
+2026-02-18 04:43:22 KST | INFO |     no    : F1=76.44%
+2026-02-18 04:43:22 KST | INFO |     maybe : F1=36.36%
+2026-02-18 04:43:22 KST | INFO |   No improvement (10/10)
+2026-02-18 04:43:22 KST | INFO | 
+Early stopping after 10 epochs without improvement
+2026-02-18 04:43:22 KST | INFO | 
+2026-02-18 04:43:22 KST | INFO | ================================================================================
+2026-02-18 04:43:22 KST | INFO | TRAINING COMPLETE
+2026-02-18 04:43:22 KST | INFO | ================================================================================
+2026-02-18 04:43:22 KST | INFO | Best accuracy:  84.33% (Epoch 3)
+2026-02-18 04:43:22 KST | INFO | ================================================================================
+2026-02-18 04:43:22 KST | INFO | 
+2026-02-18 04:43:22 KST | INFO | Notifying nodes of completion …
+2026-02-18 04:43:23 KST | INFO | ✓ Nodes notified
+2026-02-18 04:43:23 KST | INFO | 
+2026-02-18 04:43:23 KST | INFO | Closing connections …
+2026-02-18 04:43:23 KST | INFO | ✓ Cleanup complete
+2026-02-18 04:43:23 KST | INFO | 
+Full log: logs/TL++_biogpt_base_lora_20260217_203309.log
+2026-02-18 04:43:23 KST | INFO | ================================================================================
