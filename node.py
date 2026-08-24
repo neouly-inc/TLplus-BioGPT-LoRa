@@ -94,14 +94,14 @@ class SecureNode:
     def _setup_communication(self) -> None:
         if self.secure_mode:
             self.comm = SecureNodeCommunicator(
-                orch_host=self.config.get('orch_host', '127.0.0.1'),
+                orch_host=self.config.get('orch_host', DEFAULT_HOST),
                 orch_port=self.config.get('orch_port', DEFAULT_PORT),
-                helper_host=self.config.get('helper_host', '127.0.0.1'),
+                helper_host=self.config.get('helper_host', DEFAULT_HOST),
                 helper_port=self.config.get('helper_port', DEFAULT_HELPER_PORT),
             )
         else:
             self.comm = NodeCommunicator(
-                host=self.config.get('host', '127.0.0.1'),
+                host=self.config.get('host', DEFAULT_HOST),
                 port=self.config.get('port', DEFAULT_PORT),
             )
 
