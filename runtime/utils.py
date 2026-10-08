@@ -79,12 +79,17 @@ class BatchScheduler:
 
 
 # ==============================================================================
-# GRADIENT AGGREGATION  (unchanged from original TL++)
+# GRADIENT AGGREGATION
 # ==============================================================================
 
 
 class GradientAggregator:
-    """Aggregates gradients from distributed nodes via averaging."""
+    """Aggregates gradients from distributed nodes via summation.
+
+    The loss is averaged over the merged batch, so each node's gradient is
+    already its share of the full-batch gradient; summing (not averaging)
+    recovers the full-batch gradient.
+    """
 
     @staticmethod
     def aggregate_gradients(
@@ -108,7 +113,7 @@ class GradientAggregator:
                     collections[name].append(grads[name])
 
         return {
-            name: torch.stack(tensors).mean(dim=0)
+            name: torch.stack(tensors).sum(dim=0)
             for name, tensors in collections.items()
             if tensors
         }
