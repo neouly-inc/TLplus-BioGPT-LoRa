@@ -7,6 +7,7 @@ import torch
 from datetime import datetime, timezone, timedelta
 
 from runtime.protocol import SecureSocketCommunicator, SecureMessageType, SecretSharing
+from runtime.utils import DataMerger, GradientAggregator
 from core.models import create_orchestrator_model, NUM_PUBMEDQA_CLASSES
 
 
@@ -92,8 +93,9 @@ class HelperNode:
     ------------------
     ✓ Intermediate activations (hidden states): never reconstructed here
     ✓ Attention masks: received plaintext (reveals only padding, not content)
-    ✓ Cut-layer gradients: computed on share_1 separately
+    ✓ Cut-layer gradients: computed on share_1 separately, sent directly to nodes
     ✓ Output shares: sent to orchestrator (reconstructed there only)
+    ✓ Parameter gradient shares: summed across nodes before sending to orchestrator
     """
 
     def __init__(self, config: dict):
@@ -114,6 +116,8 @@ class HelperNode:
         self.merged_attn_mask = None
         self.merged_share_1_input = None
         self.outputs_share_1 = None
+        self.split_sizes = []
+        self.valid_nodes = []
         self.batch_count = 0
 
         logging.info("Helper server initialised")
@@ -192,8 +196,6 @@ class HelperNode:
                 return self._phase_compute_forward(comm)
             elif phase == 'compute' and coord_msg.get('action') == 'backward':
                 return self._phase_compute_backward(comm, coord_msg)
-            elif phase == 'backward':
-                return self._phase_backward(comm, coord_msg)
             else:
                 logging.warning(f"Unknown phase: {phase}")
                 return True
@@ -231,12 +233,19 @@ class HelperNode:
             share_data = handler.receive_forward_share()
             forward_shares.append(share_data)
 
+        # Remember each node's size for the backward split
         share_list = []
         attn_list = []
+        self.split_sizes = []
+        self.valid_nodes = []
         for result in forward_shares:
             if result.get('activations') is not None:
                 share_list.append(result['activations'])
                 attn_list.append(result['attention_mask'])
+                self.split_sizes.append(result['activations'].shape[0])
+                self.valid_nodes.append(True)
+            else:
+                self.valid_nodes.append(False)
 
         if not share_list:
             comm._send_message(self.orch_socket, SecureMessageType.SHUTDOWN, {})
@@ -246,8 +255,8 @@ class HelperNode:
         # Attention masks are plaintext; keep them for use in forward pass
         self.merged_attn_mask = torch.cat(attn_list, dim=0).to(self.device)
 
+        # Shares stay with the helper; only confirm to the orchestrator
         comm._send_message(self.orch_socket, SecureMessageType.HELPER_READY, {
-            'forward_shares': forward_shares,
             'status': 'forward_collected',
         })
         return True
@@ -267,7 +276,8 @@ class HelperNode:
         return True
 
     def _phase_compute_backward(self, comm, coord_msg) -> bool:
-        """Backpropagate through share_1 and return cut-point gradient share."""
+        """Backpropagate through share_1, send cut-gradient shares to nodes,
+        and return the nodes' parameter gradient shares summed across nodes."""
         output_gradient = coord_msg.get('output_gradient')
 
         if (output_gradient is None or
@@ -279,15 +289,13 @@ class HelperNode:
             self.outputs_share_1.backward(output_gradient)
             cut_grad_share_1 = self.merged_share_1_input.grad
 
-        comm._send_message(self.orch_socket, SecureMessageType.HELPER_READY, {
-            'cut_gradient': cut_grad_share_1.detach().cpu() if cut_grad_share_1 is not None else None,
-            'status': 'backward_computed',
-        })
-        return True
-
-    def _phase_backward(self, comm, coord_msg) -> bool:
-        """Distribute gradient shares (share_1) to nodes and collect param grads."""
-        gradient_shares = coord_msg.get('gradient_shares', [])
+        # Send cut-gradient shares (share_1) directly to nodes
+        if cut_grad_share_1 is not None:
+            gradient_shares = DataMerger.split_gradients(
+                cut_grad_share_1, self.split_sizes, self.valid_nodes
+            )
+        else:
+            gradient_shares = [None] * len(self.node_handlers)
 
         for handler, grad_share in zip(self.node_handlers, gradient_shares):
             handler.send_backward_share(grad_share)
@@ -297,8 +305,13 @@ class HelperNode:
             grad_share = handler.receive_gradient_share()
             node_grad_shares.append(grad_share)
 
+        # Sum shares across nodes so the orchestrator only sees the aggregate
+        aggregated_share = GradientAggregator.aggregate_gradients(
+            node_grad_shares, self.model.get_node_param_names(), self.valid_nodes
+        )
+
         comm._send_message(self.orch_socket, SecureMessageType.HELPER_READY, {
-            'gradient_shares': node_grad_shares,
+            'gradient_share': aggregated_share,
             'status': 'backward_complete',
         })
 
